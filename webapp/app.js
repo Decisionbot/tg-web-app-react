@@ -70,7 +70,7 @@ items.forEach((item) => {
 		itemContainer.appendChild(plusBtnElement);
 	});
 });
-#w
+
 let tg = window.Telegram.WebApp;
 
 tg.expand();

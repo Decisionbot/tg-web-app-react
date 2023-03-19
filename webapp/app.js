@@ -1,3 +1,30 @@
+const items = [
+	{ imgSrc: "1.png", btnId: "btn1" },
+	{ imgSrc: "1.png", btnId: "btn2" },
+	{ imgSrc: "1.png", btnId: "btn3" },
+	{ imgSrc: "1.png", btnId: "btn4" },
+	{ imgSrc: "1.png", btnId: "btn5" },
+	{ imgSrc: "1.png", btnId: "btn6" },
+];
+
+const itemsContainer = document.getElementById("items-container");
+
+items.forEach((item) => {
+	const itemElement = document.createElement("div");
+	itemElement.classList.add("item");
+	const imgElement = document.createElement("img");
+	imgElement.src = item.imgSrc;
+	imgElement.alt = "Burger";
+	imgElement.classList.add("img");
+	const btnElement = document.createElement("button");
+	btnElement.classList.add("btn");
+	btnElement.id = item.btnId;
+	btnElement.innerText = "Add";
+	itemElement.appendChild(imgElement);
+	itemElement.appendChild(btnElement);
+	itemsContainer.appendChild(itemElement);
+});
+
 let tg = window.Telegram.WebApp;
 
 tg.expand();

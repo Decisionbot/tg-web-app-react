@@ -1,29 +1,65 @@
-const items = [
-	{ imgSrc: "1.png", btnId: "btn1" },
-	{ imgSrc: "1.png", btnId: "btn2" },
-	{ imgSrc: "1.png", btnId: "btn3" },
-	{ imgSrc: "1.png", btnId: "btn4" },
-	{ imgSrc: "1.png", btnId: "btn5" },
-	{ imgSrc: "1.png", btnId: "btn6" },
-];
+	const items = [
+		{ imgSrc: "1.png", btnId: "btn1" },
+		{ imgSrc: "1.png", btnId: "btn2" },
+		{ imgSrc: "1.png", btnId: "btn3" },
+		{ imgSrc: "1.png", btnId: "btn4" },
+		{ imgSrc: "1.png", btnId: "btn5" },
+		{ imgSrc: "1.png", btnId: "btn6" },
+	];
 
-const itemsContainer = document.getElementById("items-container");
+	const itemsContainer = document.getElementById("items-container");
 
-items.forEach((item) => {
-	const itemElement = document.createElement("div");
-	itemElement.classList.add("item");
-	const imgElement = document.createElement("img");
-	imgElement.src = item.imgSrc;
-	imgElement.alt = "Burger";
-	imgElement.classList.add("img");
-	const btnElement = document.createElement("button");
-	btnElement.classList.add("btn");
-	btnElement.id = item.btnId;
-	btnElement.innerText = "Add";
-	itemElement.appendChild(imgElement);
-	itemElement.appendChild(btnElement);
-	itemsContainer.appendChild(itemElement);
-});
+	items.forEach((item) => {
+		const itemElement = document.createElement("div");
+		itemElement.classList.add("item");
+		const imgElement = document.createElement("img");
+		imgElement.src = item.imgSrc;
+		imgElement.alt = "Burger";
+		imgElement.classList.add("img");
+		const btnElement = document.createElement("button");
+		btnElement.classList.add("btn");
+		btnElement.id = item.btnId;
+		btnElement.innerText = "Add";
+		itemElement.appendChild(imgElement);
+		itemElement.appendChild(btnElement);
+		itemsContainer.appendChild(itemElement);
+
+		btnElement.addEventListener("click", () => {
+			const counterElement = document.createElement("div");
+			counterElement.classList.add("counter");
+
+			const addButtonElement = document.createElement("button");
+			addButtonElement.classList.add("add-btn");
+			addButtonElement.innerText = "+";
+
+			const removeButtonElement = document.createElement("button");
+			removeButtonElement.classList.add("remove-btn");
+			removeButtonElement.innerText = "-";
+
+			const countElement = document.createElement("span");
+			countElement.classList.add("count");
+			countElement.innerText = "0";
+
+			counterElement.appendChild(removeButtonElement);
+			counterElement.appendChild(countElement);
+			counterElement.appendChild(addButtonElement);
+			itemElement.appendChild(counterElement);
+
+			let count = 0;
+
+			addButtonElement.addEventListener("click", () => {
+				count++;
+				countElement.innerText = count;
+			});
+
+			removeButtonElement.addEventListener("click", () => {
+				if (count > 0) {
+					count--;
+					countElement.innerText = count;
+				}
+			});
+		});
+	});
 
 let tg = window.Telegram.WebApp;
 

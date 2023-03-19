@@ -1,65 +1,75 @@
-	const items = [
-		{ imgSrc: "1.png", btnId: "btn1" },
-		{ imgSrc: "1.png", btnId: "btn2" },
-		{ imgSrc: "1.png", btnId: "btn3" },
-		{ imgSrc: "1.png", btnId: "btn4" },
-		{ imgSrc: "1.png", btnId: "btn5" },
-		{ imgSrc: "1.png", btnId: "btn6" },
-	];
+const items = [
+	{ imgSrc: "1.png", btnId: "btn1" },
+	{ imgSrc: "1.png", btnId: "btn2" },
+	{ imgSrc: "1.png", btnId: "btn3" },
+	{ imgSrc: "1.png", btnId: "btn4" },
+	{ imgSrc: "1.png", btnId: "btn5" },
+	{ imgSrc: "1.png", btnId: "btn6" },
+];
 
-	const itemsContainer = document.getElementById("items-container");
+const itemsContainer = document.getElementById("items-container");
 
-	items.forEach((item) => {
-		const itemElement = document.createElement("div");
-		itemElement.classList.add("item");
-		const imgElement = document.createElement("img");
-		imgElement.src = item.imgSrc;
-		imgElement.alt = "Burger";
-		imgElement.classList.add("img");
-		const btnElement = document.createElement("button");
-		btnElement.classList.add("btn");
-		btnElement.id = item.btnId;
-		btnElement.innerText = "Add";
-		itemElement.appendChild(imgElement);
-		itemElement.appendChild(btnElement);
-		itemsContainer.appendChild(itemElement);
+items.forEach((item) => {
+	const itemElement = document.createElement("div");
+	itemElement.classList.add("item");
+	const imgElement = document.createElement("img");
+	imgElement.src = item.imgSrc;
+	imgElement.alt = "Burger";
+	imgElement.classList.add("img");
+	const btnElement = document.createElement("button");
+	btnElement.classList.add("btn");
+	btnElement.id = item.btnId;
+	btnElement.innerText = "Add";
+	itemElement.appendChild(imgElement);
+	itemElement.appendChild(btnElement);
+	itemsContainer.appendChild(itemElement);
 
-		btnElement.addEventListener("click", () => {
-			const counterElement = document.createElement("div");
-			counterElement.classList.add("counter");
+	// add event listener to the "Add" button
+	btnElement.addEventListener("click", (event) => {
+		const addBtn = event.currentTarget;
+		const itemContainer = addBtn.parentNode;
+		const counterElement = document.createElement("div");
+		const minusBtnElement = document.createElement("button");
+		const plusBtnElement = document.createElement("button");
+		let count = 1;
 
-			const addButtonElement = document.createElement("button");
-			addButtonElement.classList.add("add-btn");
-			addButtonElement.innerText = "+";
+		// hide the "Add" button
+		addBtn.style.display = "none";
 
-			const removeButtonElement = document.createElement("button");
-			removeButtonElement.classList.add("remove-btn");
-			removeButtonElement.innerText = "-";
+		// set up the counter element
+		counterElement.classList.add("counter");
+		counterElement.innerText = count;
 
-			const countElement = document.createElement("span");
-			countElement.classList.add("count");
-			countElement.innerText = "0";
-
-			counterElement.appendChild(removeButtonElement);
-			counterElement.appendChild(countElement);
-			counterElement.appendChild(addButtonElement);
-			itemElement.appendChild(counterElement);
-
-			let count = 0;
-
-			addButtonElement.addEventListener("click", () => {
-				count++;
-				countElement.innerText = count;
-			});
-
-			removeButtonElement.addEventListener("click", () => {
-				if (count > 0) {
-					count--;
-					countElement.innerText = count;
-				}
-			});
+		// set up the minus button
+		minusBtnElement.classList.add("btn-minus");
+		minusBtnElement.innerText = "-";
+		minusBtnElement.addEventListener("click", () => {
+			if (count > 1) {
+				count--;
+				counterElement.innerText = count;
+			} else {
+				// if count is 1, remove the counter and minus button and show the "Add" button again
+				itemContainer.removeChild(minusBtnElement);
+				itemContainer.removeChild(counterElement);
+				itemContainer.removeChild(plusBtnElement);
+				addBtn.style.display = "block";
+			}
 		});
+
+		// set up the plus button
+		plusBtnElement.classList.add("btn-plus");
+		plusBtnElement.innerText = "+";
+		plusBtnElement.addEventListener("click", () => {
+			count++;
+			counterElement.innerText = count;
+		});
+
+		// add the counter and plus/minus buttons to the item container
+		itemContainer.appendChild(minusBtnElement);
+		itemContainer.appendChild(counterElement);
+		itemContainer.appendChild(plusBtnElement);
 	});
+});
 
 let tg = window.Telegram.WebApp;
 
